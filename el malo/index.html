@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <audio src="audio.mp3" preload="auto" autoplay loop>
+    <title>Coso</title>
+    </audio>
+  </head>
+  <body>
+    <p>que queres....</p>
+    <p>ah, encima que entras a mi pagina queres que te explique que hace?</p>
+    <h4>Descubrilo solo, gil</h4>
+
+    <div class="form">
+      <label for="guessField">test</label>
+      <input type="text" id="guessField" class="guessField" placeholder="que es esto? no se">
+      <input type="submit" value="eh?" class="guessSubmit">
+    </div>
+    <div class="resultParag">
+      <p class="guesses"></p>
+      <p class="lastResult"></p>
+      <p class="output"></p>
+    </div>
+    <script>
+      let randomNumber = Math.floor(Math.random() * 10) + 1;
+      const guesses = document.querySelector('.guesses');
+      const lastResult = document.querySelector('.lastResult');
+      const output = document.querySelector('.output');
+      const guessSubmit = document.querySelector('.guessSubmit');
+      const guessField = document.querySelector('.guessField');
+      let guessCount = 1;
+
+
+      function checkGuess() {
+        let userGuess = Number(guessField.value);
+        if (guessCount === 1) {
+          guesses.textContent = 'La que recien pifiaste: ';
+        }
+
+        guesses.textContent += userGuess + ' ';
+
+        if (userGuess === randomNumber) {
+          lastResult.textContent = 'queres un premio acaso?';
+
+          output.textContent = '';
+          setGameOver();
+        } else if (guessCount === 10) {
+          lastResult.textContent = 'te entró agua, gil';
+          output.textContent = '';
+          setGameOver();
+        } else {
+          lastResult.textContent = 'que raro vos pifiando';
+
+          if(userGuess < randomNumber) {
+            output.textContent = 'el truco de adivinar es que NO TE DIGAN NADA' ;
+          } else if(userGuess > randomNumber) {
+            output.textContent = 'ni pienses que te voy a ayudar';
+
+          }
+        }
+
+        guessCount++;
+        guessField.value = '';
+        guessField.focus();
+      }
+
+      guessSubmit.addEventListener('click', checkGuess);
+
+      function setGameOver() {
+        guessField.disabled = true;
+        guessSubmit.disabled = true;
+      }
+    </script>
+  </body>
+</html>
